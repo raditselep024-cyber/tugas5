@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IeeDog Training</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --orange: #E87722;
+      --orange-dark: #c45f0a;
+      --cream: #F5F0E8;
+      --dark: #1a1a1a;
+      --gray: #6b6b6b;
+      --light-gray: #f8f4ef;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--dark) !important;
+      text-decoration: none;
+    }
+
+    .navbar-brand .brand-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--orange);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .navbar-brand .brand-sub {
+      font-size: .7rem;
+      font-weight: 500;
+      color: var(--gray);
+      display: block;
+      line-height: 1;
+    }
+
+    .nav-link {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: .88rem;
+      color: var(--dark) !important;
+      padding: 6px 14px !important;
+      transition: color .2s;
+    }
+
+    .nav-link:hover { color: var(--orange) !important; }
+
+    .btn-try {
+      background: var(--orange);
+      color: #fff !important;
+      border-radius: 24px;
+      padding: 8px 22px !important;
+      font-weight: 700;
+      font-size: .85rem;
+      transition: background .2s, transform .2s;
+    }
+
+    .btn-try:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: linear-gradient(to right, rgba(0,0,0,.55) 38%, rgba(0,0,0,.1) 100%),
+                  url('https://images.unsplash.com/photo-1558788353-f76d92427f16?w=1400&auto=format&fit=crop') center/cover no-repeat;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 80px 0 80px;
+      max-width: 520px;
+    }
+
+    .hero-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 2.6rem;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    .hero-title span { color: var(--orange); }
+
+    .hero-desc {
+      color: rgba(255,255,255,.85);
+      font-size: .98rem;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .btn-orange {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 28px;
+      padding: 13px 32px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: .92rem;
+      cursor: pointer;
+      transition: background .2s, transform .2s, box-shadow .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-orange:hover {
+      background: var(--orange-dark);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232,119,34,.4);
+    }
+
+    /* Slider dots */
+    .hero-dots {
+      margin-top: 36px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.45);
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .dot.active { background: #fff; }
+
+    /* ── SERVICES SECTION ── */
+    .services-section {
+      background: var(--cream);
+      padding: 70px 0;
+    }
+
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.7rem;
+      text-align: center;
+      margin-bottom: 48px;
+      color: var(--dark);
+    }
+
+    .service-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 34px 24px 26px;
+      text-align: center;
+      box-shadow: 0 2px 16px rgba(0,0,0,.07);
+      height: 100%;
+      transition: transform .25s, box-shadow .25s;
+      border: 1px solid rgba(0,0,0,.04);
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.12);
+    }
+
+    .service-icon {
+      width: 62px; height: 62px;
+      border-radius: 14px;
+      background: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.6rem;
+      color: var(--dark);
+    }
+
+    .service-card h5 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.02rem;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: .87rem;
+      color: var(--gray);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .link-orange {
+      color: var(--orange);
+      font-weight: 700;
+      font-size: .85rem;
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .link-orange:hover { color: var(--orange-dark); }
+
+    /* ── ABOUT SECTION ── */
+    .about-section {
+      background: var(--light-gray);
+      padding: 80px 0;
+    }
+
+    .about-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      line-height: 1.25;
+      margin-bottom: 22px;
+    }
+
+    .about-text {
+      color: var(--gray);
+      font-size: .96rem;
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+
+    .about-img-wrap {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+    }
+
+    .about-img-wrap img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: var(--orange);
+      color: #fff;
+      border-radius: 12px;
+      padding: 10px 18px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: .88rem;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #1c1c1c;
+      color: rgba(255,255,255,.75);
+      padding: 60px 0 30px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .footer-brand .brand-icon {
+      width: 44px; height: 44px;
+      background: var(--orange);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .footer-brand-name {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      color: #fff;
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+
+    .footer-brand-sub {
+      font-size: .72rem;
+      color: rgba(255,255,255,.5);
+    }
+
+    .footer h6 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 18px;
+      font-size: .95rem;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer ul li a {
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      font-size: .87rem;
+      transition: color .2s;
+    }
+
+    .footer ul li a:hover { color: var(--orange); }
+
+    .footer-search {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,.1);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .footer-search input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      padding: 10px 14px;
+      flex: 1;
+      font-size: .85rem;
+    }
+
+    .footer-search input::placeholder { color: rgba(255,255,255,.4); }
+
+    .footer-search button {
+      background: var(--orange);
+      border: none;
+      color: #fff;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .footer-search button:hover { background: var(--orange-dark); }
+
+    .social-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-links a {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+
+    .social-links a:hover { transform: translateY(-2px); }
+    .social-fb { background: #1877f2; color: #fff; }
+    .social-tw { background: #1da1f2; color: #fff; }
+    .social-ig { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      margin-top: 40px;
+      padding-top: 20px;
+      font-size: .82rem;
+      color: rgba(255,255,255,.35);
+      text-align: center;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 767px) {
+      .hero-title { font-size: 1.8rem; }
+      .about-title { font-size: 1.5rem; }
+      .hero { min-height: 420px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <div class="brand-icon">🐾</div>
+      <div>
+        IeeDog
+        <span class="brand-sub">Training</span>
+      </div>
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Course</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Log</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Notes</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Content</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3 mt-2 mt-lg-0">
+        <a href="#" class="nav-link px-0" style="font-size:.85rem">
+          <i class="fas fa-shopping-cart me-1"></i>
+        </a>
+        <a href="#" class="nav-link px-0" style="font-size:.85rem">Subscribe</a>
+        <a href="#" class="nav-link btn-try">Start Free ▶</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        We are <span>making dog</span><br>
+        training for<br>all families.
+      </h1>
+      <p class="hero-desc">
+        Combining science-based methods and deep compassion,<br>
+        our expert trainers bring out the best in your beloved dog.
+      </p>
+      <a href="#" class="btn-orange">
+        Now Training <i class="fas fa-arrow-right"></i>
+      </a>
+      <div class="hero-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="services-section">
+  <div class="container">
+    <h2 class="section-title">What we all do for yours</h2>
+    <div class="row g-4">
+      <!-- Card 1 -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-hand-paper"></i>
+          </div>
+          <h5>Behavior</h5>
+          <p>Expert behavior training to build obedience and a strong bond between you and your pet.</p>
+          <a href="#" class="link-orange">See rules →</a>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-dog"></i>
+          </div>
+          <h5>Lessons</h5>
+          <p>Guided one-on-one lessons tailored to your dog's breed, personality, and learning pace.</p>
+          <a href="#" class="link-orange">Book class trainings →</a>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-paw"></i>
+          </div>
+          <h5>Coverage</h5>
+          <p>Full training coverage including socialization, agility, and command mastery programs.</p>
+          <a href="#" class="link-orange">Book best on months →</a>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h5>Dog Team</h5>
+          <p>Join our certified expert team for group sessions and community-based dog learning events.</p>
+          <a href="#" class="link-orange">Find best packages →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT / CTA ===== -->
+<section class="about-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <!-- Text -->
+      <div class="col-12 col-lg-6">
+        <h2 class="about-title">
+          Worth learning time<br>
+          on all it here.
+        </h2>
+        <p class="about-text">
+          There are many routes and programs available for trainers. These have been found
+          out by our community for the important factors to understand more about
+          handling a lot of dog — it's smaller in the group.
+        </p>
+        <p class="about-text">
+          Factual test to use some functions starting with combining qualities. Experience
+          of great authorities can be your trainer while in classes and an early
+          empty community.
+        </p>
+        <a href="#" class="btn-orange mt-2">
+          Continue Area <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      <!-- Image -->
+      <div class="col-12 col-lg-6">
+        <div class="about-img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&auto=format&fit=crop"
+            alt="Happy dogs"
+          />
+          <div class="about-badge">🐾 Expert Trainers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Brand -->
+      <div class="col-12 col-lg-3">
+        <div class="footer-brand">
+          <div class="brand-icon">🐾</div>
+          <div>
+            <div class="footer-brand-name">Krear Maeker<br>Learnings</div>
+          </div>
+        </div>
+        <p style="font-size:.84rem;color:rgba(255,255,255,.45);line-height:1.65">
+          Providing professional, science-backed dog training for every family.
+        </p>
+      </div>
+
+      <!-- Bonnes -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <h6>Bonnes</h6>
+        <ul>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Members</a></li>
+          <li><a href="#">Interactions</a></li>
+        </ul>
+      </div>
+
+      <!-- Plchtessions -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <h6>Platforms</h6>
+        <ul>
+          <li><a href="#">Course Training</a></li>
+          <li><a href="#">Distribution</a></li>
+          <li><a href="#">Currency</a></li>
+        </ul>
+      </div>
+
+      <!-- Pyy-foulltise -->
+      <div class="col-12 col-md-3 col-lg-2">
+        <h6>Pyy-fullsite</h6>
+        <ul>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Content Pages</a></li>
+        </ul>
+      </div>
+
+      <!-- Search + Social -->
+      <div class="col-12 col-lg-3">
+        <div class="footer-search">
+          <input type="text" placeholder="Find content..."/>
+          <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="social-links">
+          <a href="#" class="social-fb"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-tw"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-ig"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      &copy; 2024 IeeDog Training. All rights reserved. — Created with full commitment.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Slider dot interaction
+  document.querySelectorAll('.dot').forEach((dot, i, dots) => {
+    dot.addEventListener('click', () => {
+      dots.forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+    });
+  });
+
+  // Navbar scroll shadow
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('.navbar');
+    nav.style.boxShadow = window.scrollY > 10
+      ? '0 4px 20px rgba(0,0,0,.12)'
+      : '0 2px 12px rgba(0,0,0,.08)';
+  });
+</script>
+</body>
+</html>
